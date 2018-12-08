@@ -8,6 +8,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 base_url = 'http://awful-valentine.com/'
 
+
 @pytest.fixture(scope='module')  # фикстура
 def driver():
     driver = webdriver.Chrome(
@@ -19,14 +20,21 @@ def driver():
     time.sleep(5)
     driver.quit()
 
-def test_slider_image_click_shows_product_page(driver:WebDriver):
+
+def test_slider_image_click_shows_product_page(driver: WebDriver):
     driver.get(base_url)
 
-    featured_title_el  = driver.find_element(By.CSS_SELECTOR, '.featured-title')  #с точки потому что имя класса CSS
+    featured_title_el = driver.find_element(By.CSS_SELECTOR, '.featured-title')  # с точки потому что имя класса CSS
     title = featured_title_el.text
 
     featured_image_el = driver.find_element(By.CSS_SELECTOR, '.featured-image')
     featured_image_el.click()
 
-#Мы нашли название товара, кликнули по нему и проверели совпадает или название новой страницы с названием товара
+    # Мы нашли название товара, кликнули по нему и проверели совпадает или название новой страницы с названием товара
     assert title in driver.title
+    category_title_el = driver.find_element(By.CSS_SELECTOR, '.category-title')
+    assert title == category_title_el.text
+
+    driver.save_screenshot('./screenshot.png') #создается скриншот. Обновляется после каждого теста
+
+    
