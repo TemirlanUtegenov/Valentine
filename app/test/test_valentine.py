@@ -37,4 +37,3 @@ def test_slider_image_click_shows_product_page(driver: WebDriver):
 
     driver.save_screenshot('./screenshot.png') #создается скриншот. Обновляется после каждого теста
 
-    
